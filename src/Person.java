@@ -3,13 +3,13 @@ import java.util.ArrayList;
 public class Person {
     String name;
     int index, assignedTo;
-    ArrayList<Integer> preferences = new ArrayList();
+    String[] preferences;
     boolean isTaken;
 
-    public Person(String name, int assignedTo, boolean isTaken, ArrayList<Integer> preferences) {
+    public Person(String name, String[] preferences) {
         this.name = name;
-        this.assignedTo = assignedTo;
-        this.isTaken = isTaken;
+        this.assignedTo = -1;
+        this.isTaken = false;
         this.preferences = preferences;
     }
 
@@ -37,11 +37,21 @@ public class Person {
         this.assignedTo = assignedTo;
     }
 
-    public ArrayList<Integer> getPreferences() {
-        return preferences;
+    public String getPreferences(int index) {
+        return preferences[index];
     }
 
-    public void setPreferences(ArrayList<Integer> preferences) {
+    public int getPreferenceIndex(int rank){
+        int prefInt;
+        for (int i = 0; i<=3; i++){
+            prefInt = Integer.parseInt(preferences[i]);
+            if (prefInt == rank)
+                return i;
+        }
+        return -1;
+    }
+
+    public void setPreferences(String[] preferences) {
         this.preferences = preferences;
     }
 

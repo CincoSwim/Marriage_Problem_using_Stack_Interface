@@ -23,7 +23,7 @@ public class CoupleStack implements CoupleStackInterface {
 
     }
 
-    public boolean isFull() {
+    public boolean IsFull() {
         if (top == stack.length - 1) {
             return true;
         } else {
@@ -31,7 +31,7 @@ public class CoupleStack implements CoupleStackInterface {
         }
     }
 
-    public boolean isEmpty() {
+    public boolean IsEmpty() {
         if (top == -1) {
             return true;
         } else {
@@ -39,4 +39,4 @@ public class CoupleStack implements CoupleStackInterface {
         }
 
 
-    }
+    }}
