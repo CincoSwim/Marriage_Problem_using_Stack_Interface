@@ -2,16 +2,15 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 public class Matcher {
     public static void main(String args[]) {
-        String nameRead;
-        Integer[] preferences;
+
         Person[] group1, group2;
-        int numOfPeople, indexToCheck;
-        group1 = new Person[0];
-        group2 = new Person[0];
+        int numOfPeople, k, rmvAssign;
+        boolean partnerFound;
+
         CoupleStack stack = new CoupleStack(4);
 
         try {
@@ -29,9 +28,11 @@ public class Matcher {
                 group2[i] = new Person(r.readLine(), r.readLine().split("\t"));
 
             }
+
+
             while (!stack.IsFull()) {
                 int rank = 0;
-                outer:
+
                 for (int i = 0; i <= numOfPeople - 1; i++) {
 
                     if (group1[i].isTaken) {
@@ -39,44 +40,59 @@ public class Matcher {
 
                     } else {
 
+                        partnerFound = false;
+                        while (partnerFound == false) {
+                            k = group1[i].getPreferenceIndex(rank);
 
-                        indexToCheck = group1[i].getPreferenceIndex(rank);
+                            if (group2[k].isTaken == false) {
 
-                        if (group2[indexToCheck].isTaken = false) {
+                                group1[i].setAssignedTo(k);
+                                group1[i].isTaken = true;
+                                group2[k].setAssignedTo(i);
+                                group2[k].isTaken = true;
 
-                            group1[i].setAssignedTo(indexToCheck);
-                            group1[i].isTaken = true;
-                            group2[indexToCheck].setAssignedTo(i);
-                            group2[indexToCheck].isTaken = true;
+                                stack.push(new Couples(i, k));
 
-                            stack.push(new Couples(i, indexToCheck));
-                        }
-
-                        if (group2[indexToCheck].isTaken = true) {
-
-
-                            if (group2[indexToCheck].getIndexPreference(i) < group2[indexToCheck].getIndexPreference(group2[indexToCheck].assignedTo)) {
-                                //backtrackToRemove(group2[indexToCheck].assignedTo);
+                                partnerFound = true;
+                            } else if (group2[k].isTaken == true) {
 
 
-                            }else if ((group2[indexToCheck].getIndexPreference(i) > group2[indexToCheck].getIndexPreference(group2[indexToCheck].assignedTo))){
-                                rank++;
-                                continue outer;
+                                if (group2[k].getIndexPreference(i) < group2[k].getIndexPreference(group2[k].assignedTo)) {
+                                    //backtrackToRemove(group2[k].assignedTo);
+                                    while (stack.top().partner1 != group2[k].assignedTo) {
+                                        rmvAssign = stack.top().partner1;
+                                        group1[rmvAssign].isTaken = false;
+                                        stack.pop();
+                                    }
+                                    rmvAssign = stack.top().partner1;
+                                    group1[rmvAssign].isTaken = false;
+                                    stack.pop();
+                                    group1[i].setAssignedTo(k);
+                                    group1[i].isTaken = true;
+                                    group2[k].setAssignedTo(i);
+                                    group2[k].isTaken = true;
+
+
+                                    stack.push(new Couples(i, k));
+                                    partnerFound = true;
+                                } else if ((group2[k].getIndexPreference(i) > group2[k].getIndexPreference(group2[k].assignedTo))) {
+                                    rank++;
+                                    partnerFound = false;
+                                }
+
+
                             }
-
-
                         }
-
-
                     }
                 }
+
+
             }
-
-
-
-
-
-
+            for (int j = 0; j <= numOfPeople - 1; j++) {
+                System.out.print("Team " + (j+1) + ": ");
+                System.out.println(group1[stack.top().partner1].name + " and " + group2[stack.top().partner2].name);
+                stack.pop();
+            }
 
 
         } catch (IOException e) {
@@ -85,17 +101,17 @@ public class Matcher {
 
 
 
+
+
+        /*
         System.out.println(group1[0].getName());
         System.out.println(group2[0].getName());
         System.out.println(group2[3].getPreferences(2));
         System.out.println(group1[0].getPreferenceIndex(0));
         System.out.println(group2[1].getIndexPreference(1));
-
+        */
 
     }
-
-
-
 
 
 }
