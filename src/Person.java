@@ -51,6 +51,12 @@ public class Person {
         return -1;
     }
 
+    public int getIndexPreference(int index){
+        int preferenceVal;
+        preferenceVal = Integer.parseInt(this.getPreferences(index));
+        return preferenceVal;
+    }
+
     public void setPreferences(String[] preferences) {
         this.preferences = preferences;
     }
