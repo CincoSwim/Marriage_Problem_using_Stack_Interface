@@ -1,3 +1,12 @@
+/*
+EECS 2500 Project 1
+Written by Christopher Pucko
+
+This implements the CoupleStackInterface into a Stack of Couple objects.
+
+ */
+
+
 public class CoupleStack implements CoupleStackInterface {
     int top;
     Couples stack[];
