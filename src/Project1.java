@@ -2,18 +2,26 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-/*
-EECS 2500 Project 1
-Written by Christopher Pucko
 
-This program uses a stack interface to compare preferences between people to form comfortable pairs. It first reads
-the groups of people and their preferences to arrays of People objects using BufferedReader. Then, it compares the people
-in these arrays sequentially, pushing pairs to the stack when pairings are available. If a pairing is not available, it
-the preferences of the 2nd person, removing the pair from the stack and recreating it if a better pairing is found. When
-4 stable pairs are found, it prints them to the console by name.
+/**
+ * This acts as the main method for this project, and implements logic to pair items, backtracking in a stack to find
+ * stable pairings.
+ *
+ * @author Christopher Pucko <cgpucko@gmail.com>
+ * <p>
+ * Preconditions - "namelist.txt" must be in the proper root directory to be read.
+ * Postconditions - Will print names of pairs coupled together, listed by name, labeled teams 0 through 3.
+ *
+ * <p>
+ * Detailed Description- This program uses a stack interface to compare preferences between people to form comfortable pairs. It first reads
+ * the groups of people and their preferences to arrays of People objects using BufferedReader. Then, it compares the people
+ * in these arrays sequentially, pushing pairs to the stack when pairings are available. If a pairing is not available, it
+ * the preferences of the 2nd person, removing the pair from the stack and recreating it if a better pairing is found. When
+ * 4 stable pairs are found, it prints them to the console by name.
+ * </p>
  */
 
-public class Matcher {
+public class Project1 {
     public static void main(String args[]) {
 
         Person[] group1, group2;
@@ -23,8 +31,9 @@ public class Matcher {
         CoupleStack stack;
 
         try {
-            //A BufferedReader that reads test text from the supplied file, and inputs them as Person objects before
-            //putting them in arrays.
+            /*A BufferedReader that reads test text from the supplied file, and inputs them as Person objects before
+             *putting them in arrays.
+             */
             FileReader file = new FileReader(new File("namelist.txt"));
             BufferedReader r = new BufferedReader(file);
             numOfPeople = Integer.parseInt(r.readLine());
@@ -42,7 +51,7 @@ public class Matcher {
 
             }
 
-        //This acts as the logic to compare pairings.
+            //This acts as the logic to compare pairings.
             while (!stack.IsFull()) {
                 int rank = 0;
 
@@ -115,10 +124,6 @@ public class Matcher {
             System.out.println("File IO Exception. Please ensure that your file is in the correct directory and has " +
                     "the correct formatting.");
         }
-
-
-
-
 
 
     }

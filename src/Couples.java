@@ -1,10 +1,7 @@
-/*
-EECS 2500 Project 1
-Written by Christopher Pucko
-
-This class creates an object called Couples, which acts as a pair of 2 index intergers. These pairs can then be pushed
-to the stack. From the stack, you can recall the index numbers, which can then be used to reference Person objects in
-their respective arrays.
+/**
+ * This class creates an object called Couples, which acts as a pair of 2 index intergers.
+ *
+ * @author Christopher Pucko <cgpucko@gmail.com>
  */
 
 public class Couples {
