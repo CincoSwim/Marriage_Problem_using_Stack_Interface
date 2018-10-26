@@ -62,6 +62,7 @@ public class Project1 {
 
                     } else {
 
+
                         partnerFound = false;
                         while (partnerFound == false) {
                             k = group1[i].getPreferenceIndex(rank);
